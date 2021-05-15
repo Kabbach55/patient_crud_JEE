@@ -1,6 +1,6 @@
 package ma.emsi.Patient.web;
 
-import java.util.List;
+
 
 import javax.validation.Valid;
 
@@ -31,6 +31,7 @@ public class PatientsController {
 		model.addAttribute("patients", pagePatients.getContent());
 		model.addAttribute("pages", new int[pagePatients.getTotalPages()]);
 		model.addAttribute("currentPage", page);
+		model.addAttribute("size", size);
 		model.addAttribute("keyword", mc);
 		return "patient";
 
