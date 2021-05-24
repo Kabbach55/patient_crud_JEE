@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <meta charset="utf-8">
@@ -12,7 +13,8 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light "
+		style="background-color: #e3f2fd;">
 		<a class="navbar-brand" href="#">Patient</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -34,19 +36,23 @@
 						<a class="dropdown-item" th:href="@{formPatient}">ajouter</a> <a
 							class="dropdown-item" href="#">chercher</a>
 
-					</div></li></ul>
-					<ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown "><a
-					class="nav-link dropdown-toggle" href="#"
-					id="navbarDropdownMenuLink" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"> [username] </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="#">Login</a> <a
-							class="dropdown-item" href="#">Logout</a><a
-							class="dropdown-item" href="#">Profile</a>
+					</div></li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="" id="navbardrop"
+				data-toggle="dropdown">
+					<span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+					<span sec:authorize="!isAuthenticated()" >Connect</span>
+				</a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{login}" sec:authorize="!isAuthenticated()">Login</a> 
+					<a class="dropdown-item" th:href="@{logout}" sec:authorize="isAuthenticated()">Logout</a> 
+					<a class="dropdown-item" href="">Profile</a>
+				</div>
+			</li>
+			</ul>
 
-					</div></li></ul>
-			
 		</div>
 	</nav>
 	<section layout:fragment="content"></section>

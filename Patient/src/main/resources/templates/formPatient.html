@@ -8,29 +8,49 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="container">
-			<form th:action="@{savePatient}" method="post">
-				<div class="form-group">
-					<label class="control-label">nom</label> <input type="text"
-						class="form-control" name="nom" placeholder="Enter name"
-						th:value="${patient.nom}"> 
-						<span th:errors="${patient.nom}"></span>
+
+		<div class="container mt-5">
+			<div class="card">
+				
+				<div class="card-header" th:if=${mode=='new'}>formulaire de creation d'un patient</div>
+				<div class="card-header" th:if=${mode=='edit'}> formulaire de mdification d'un patient</div>
+				<div class="card-body">
+					<form th:action="@{savePatient}" method="post">
+						<div class="form-group">
+							<label class="control-label">Id  :  </label>
+							<label class="control-label" th:text="${patient.id}"></label> <input type="hidden"
+								class="form-control" name="id" 
+								th:value="${patient.id}"> 
+						</div>
+						<div class="form-group">
+							<label class="control-label">Nom</label> <input type="text"
+								class="form-control" name="nom" placeholder="Enter name"
+								th:value="${patient.nom}"> <span
+								th:errors="${patient.nom}" class="text-warning"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Score</label> <input type="text"
+								class="form-control" name="score" placeholder="Enter name"
+								th:value="${patient.score}"> <span
+								th:errors="${patient.score}" class="text-warning"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Date de naissance :</label> <input
+								type="date" class="form-control" name="birthDate"
+								th:value="${patient.birthDate}"> <span
+								th:errors="${patient.birthDate}" class="text-warning"></span>
+						</div>
+						<div class="form-group form-check">
+							<label class="form-check-label"> <input
+								class="form-check-input" type="checkbox" name="malade"
+								th:checked="${patient.malade}"> malade
+							</label> <span th:errors="${patient.malade}"></span>
+						</div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
 				</div>
-				<div class="form-group">
-					<label class="control-label">Date de naissance :</label> <input
-						type="date" class="form-control" name="birthDate"
-						th:value="${patient.birthDate}">
-						<span th:errors="${patient.birthDate}"></span>
-				</div>
-				<div class="form-group form-check">
-					<label class="form-check-label"> <input
-						class="form-check-input" type="checkbox" name="malade"
-						th:checked="${patient.malade}"> malade
-					</label>
-					<span th:errors="${patient.malade}"></span>
-				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</form>
+			</div>
+
 		</div>
 	</div>
 </body>

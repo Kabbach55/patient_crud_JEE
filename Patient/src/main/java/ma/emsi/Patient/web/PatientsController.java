@@ -22,6 +22,12 @@ import ma.emsi.Patient.repositories.PatientRepository;
 public class PatientsController {
 	@Autowired
 	private PatientRepository patientRepository;
+	@GetMapping ("/")
+	public String index ()
+	{
+		
+		return "redirect:/patients";
+	}
 
 	@GetMapping(path = "/patients")
 	public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
@@ -64,8 +70,18 @@ public class PatientsController {
 		}
 
 		patientRepository.save(patient);	
-		return "redirect:/patients";
+		return "confirmation";
 
 	}
+	
+	@GetMapping ("/editPatient")
+	public String editPatient (Model model, Long id)
+	{
+		Patient p = patientRepository.findById(id).get();
+		model.addAttribute("patient", p);
+		model.addAttribute("mode","edit");
+		return "formPatient";
+	}
+	
 
 }
